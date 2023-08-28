@@ -39,6 +39,11 @@ python3 debug/deployazure.py
 http http://<public_ip>:7071/api/onnx @debug/babyyoda.jpg > output.jpg
 ```
 
+### Running the SciNet model
+```console
+python3 main.py
+```
+
 
 ## Cite this work
 Our work is published in IEEE Transactions on Computers. Cite using the following bibtex entry.
