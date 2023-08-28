@@ -1,16 +1,14 @@
+[![License](https://img.shields.io/badge/License-BSD%203--Clause-red.svg)](https://github.com/imperial-qore/SciNet/blob/master/LICENSE)
+![Python 3.7, 3.8](https://img.shields.io/badge/python-3.7%20%7C%203.8-blue.svg)
+[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fimperial-qore%2FSciNet%2F&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
+
 # SciNet
-
-Gumbel Softmax !!!
-
-SciFramework: Serverless Co-Design Framework.
-
-"SciNet: Co-Design in Resource Management of Distributed Computing Environments"
 
 <a href="https://gitpod.io/#https://github.com/shreshthtuli/SciNet/">
     <img src="https://gitpod.io/button/open-in-gitpod.svg" alt="Open in gitpod">
   </a>
 
-System decision making to meet system level objectives by exploiting the synergism of hardware and software through their concurrent design.
+The rise of distributed cloud computing technologies has been pivotal for the large-scale adoption of Artificial Intelligence (AI) based applications for high fidelity and scalable service delivery. Systematic resource management is central in maintaining optimal Quality of Service (QoS) in cloud platforms and is divided into three fundamental types: resource provisioning, AI model deployment and workload placement. To exploit the synergy among these decision types, it becomes imperative to concurrently design (co-design) the provisioning, deployment and placement decisions for optimal QoS. As users and cloud service providers shift to non-stationary AI-based workloads, frequent decision making imposes severe time constraints on the resource management models. Existing AI-based solutions often optimize decision types independently and tend to ignore the dependencies across various system performance aspects such as energy consumption and CPU utilization, making them perform poorly in large-scale cloud systems. To address this, we propose a novel method, called SciNet, that leverages a co-simulated digital-twin of the infrastructure to capture inter-metric dependencies and accurately estimate QoS scores. To avoid expensive simulation overheads at test time, SciNet trains a neural network based imitation learner that aims to mimic an oracle, which takes optimal decisions based on co-simulated QoS estimates. Offline model training and online decision making based on the imitation learner, enables SciNet to take optimal decisions while being time-efficient. Experiments with real-life AI-based benchmark applications on a public cloud testbed show that SciNet gives up to 48\% lower execution cost, 79\% higher inference accuracy, 71\% lower energy consumption and 56\% lower response times compared to the current state-of-the-art methods. 
 
 ## Quick Start Guide
 
@@ -41,32 +39,23 @@ python3 debug/deployazure.py
 http http://<public_ip>:7071/api/onnx @debug/babyyoda.jpg > output.jpg
 ```
 
-# Details and motivation
 
-As initially, the model wont predict optimal decisions, use teacher forcing to converge. Then converge again without teacher forcing.
-We call the NN as SciNet (Serverless Co-Design Network). We call the learning process as CILP (from IJCAI paper).
+## Cite this work
+Our work is published in IEEE Transactions on Computers. Cite using the following bibtex entry.
+```bibtex
+@article{tuli2023scinet,
+  author={Tuli, Shreshth and Casale, Giuliano and Jennings, Nicholas R.},
+  journal={IEEE Transactions on Computers}, 
+  title={{SciNet: Co-Design of Resource Management in Cloud Computing Environments}}, 
+  year={2023}
+}
+```
 
-- We run co-simulated runs to generate gold (similar to A/B testing)
-- We can not run co-simulation for each action at runtime as it takes much longer than 5 seconds (typical interval duration in serverless)
 
-For cosim optimization parameters:
+## License
 
-- provisioner: tradeoff between utilization ratio and cost
-- decider: sla violation and accuracy
-- scheduler: qos.
+BSD-3-Clause. 
+Copyright (c) 2022, Shreshth Tuli.
+All rights reserved.
 
-Baselines:
-
-- Predict+Optimization methods: ARIMA+ACO, LSTM+ACO, Decision-NN, Semi-Direct, GRAF (use for each sub-problem).
-- SOTA provisioner+decider+scheduler: UAHS+Gillis+GOSH, CAHS+Gillis+GOSH (UAHS/CAHS dont need estimates, Gillis has lower sched time), Narya+SplitPlace (Narya needs latency estimates that SplitPlace provides).
-- other co-design methods: CES, HASCO, RecSim.
-
-## Visualization
-
-1. Neural Network model
-2. SciNet/CILP model
-3. Table: r, cost, accuracy, energy, response time, sla violations, qos (baselines + Ablations + SciNet) (Ablation: w/o trans, w/o co-design)
-4. Figures: waiting time (box), cpu util/hosts active (box plots), rt per application (line), acc per application (line), decision (bars), fairness (bars), decision time (stacked bars), provisioning overhead (bars).
-5. Figure (single column): Training time and test loss of each demand prediction method.
-6. Table (single column): Sensitivity Analysis of gamma (r, cost, qos); xi (acc, sla, qos); zeta (e, rt, qos). 
-7. RPi cluster image.
+See License file for more details.
